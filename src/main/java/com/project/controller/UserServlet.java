@@ -24,11 +24,21 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         // ✅ Validation
+    
         List<String> errors = UserValidator.validate(name, email, phone, password, ageStr);
 
+        resp.setContentType("text/html");
+
+        // ❌ If errors → go back to SAME page
         if (!errors.isEmpty()) {
+
             req.setAttribute("errors", errors);
-            req.getRequestDispatcher("error.jsp").forward(req, resp);
+            req.setAttribute("name", name);
+            req.setAttribute("email", email);
+            req.setAttribute("phone", phone);
+            req.setAttribute("age", ageStr);
+
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
             return;
         }
 
@@ -44,7 +54,7 @@ public class UserServlet extends HttpServlet {
         } else {
             errors.add("Database error occurred");
             req.setAttribute("errors", errors);
-            req.getRequestDispatcher("error.jsp").forward(req, resp);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
     }
 }

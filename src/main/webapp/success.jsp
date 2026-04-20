@@ -1,17 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Registration Successful</title>
-</head>
-<body>
-<h3 style = "color: green">Data Successfully saved</h3>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	<p>Name: ${user.name}</p>
-	<p>Age: ${user.age}</p>
-	<p>Email: ${user.email}</p>
-	<p>Phone: ${user.phone}</p>
+<html>
+<body>
+
+<h2>Registration Successful</h2>
+
+<p>Name: ${user.name}</p>
+<p>Age: ${user.age}</p>
+<p>Email: ${user.email}</p>
+<p>Phone: ${user.phone}</p>
+
 </body>
 </html>
