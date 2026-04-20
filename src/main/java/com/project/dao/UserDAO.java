@@ -3,26 +3,43 @@ package com.project.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.project.model.User;
 
 public class UserDAO {
 	
+	public static Connection getConnection(){
+		
+		Connection con = null;
+		
+		String url = "jdbc:postgresql://localhost:5432/Dummy?user=postgres&password=root";
+		String driver = "org.postgresql.Driver";
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url);
+			
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return con;
+	}
+	
 	public static int save(User user) {
 		
 		int result = 0;
-		String url = "jdbc:postgresql://localhost:5432/Dummy?user=postgres&password=root";
+		
 		String query = "INSERT INTO newform(name, age, email, phone, password) VALUES(?,?,?,?,?)";
 		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
-		try(Connection con = DriverManager.getConnection(url)) {
+		
+		try(Connection con = getConnection()) {
 			
 			PreparedStatement pstm = con.prepareStatement(query);
 			
@@ -41,6 +58,39 @@ public class UserDAO {
 		}
 		
 		return result;
+	}
+	
+	public static User login(String email,String password){
+		
+		User user = null;
+		
+		String query = "SELECT * FROM newform WHERE email = ? AND password = ?";
+		
+		try(Connection con = getConnection();
+				PreparedStatement ps = con.prepareStatement(query)){
+			
+			ps.setString(1, email);
+			ps.setString(2, password);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				 user = new User(
+						 	rs.getString("name"),
+						 	rs.getInt("age"),
+						 	rs.getString("email"),
+						 	rs.getLong("phone"),
+						 	null);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
+		
 	}
 
 }

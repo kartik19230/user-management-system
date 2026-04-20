@@ -19,7 +19,10 @@
     Phone:<input type="text" name="phone" value="${phone}" /><br>
     Password:<input type="password" name="password" /><br><br>
 
-    <button type="submit">Submit</button>
+    <button type="submit">Submit</button><br>
+    
+    Already have account?
+	<a href="login.jsp">Login Here</a>
 
 </form>
 
