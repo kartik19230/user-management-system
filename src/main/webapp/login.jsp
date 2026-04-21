@@ -113,9 +113,9 @@
 		<input type = "submit" value = "Login">
 	</form>
 	
-	<!-- <p style = "color:red;">
+	<p style = "color:red;">
 	${error}
-	</p> -->
+	</p>
 	</div>
 </body>
 </html>
