@@ -6,30 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.project.model.User;
+import com.project.util.DBUtil;
 
 public class UserDAO {
-	
-	public static Connection getConnection(){
-		
-		Connection con = null;
-		
-		String url = "jdbc:postgresql://localhost:5432/Dummy?user=postgres&password=root";
-		String driver = "org.postgresql.Driver";
-		
-		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url);
-			
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return con;
-	}
 	
 	public static int save(User user) {
 		
@@ -38,23 +20,22 @@ public class UserDAO {
 		String query = "INSERT INTO newform(name, age, email, phone, password) VALUES(?,?,?,?,?)";
 		
 		
-		
-		try(Connection con = getConnection()) {
+		try(Connection con =  DBUtil.getConnection();
+				PreparedStatement pstm = con.prepareStatement(query)){
 			
-			PreparedStatement pstm = con.prepareStatement(query);
+			String hashedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
 			
 			pstm.setString(1, user.getName());
 			pstm.setInt(2, user.getAge());
 			pstm.setString(3, user.getEmail());
 			pstm.setLong(4, user.getPhone());
-			pstm.setString(5, user.getPassword());
+			pstm.setString(5, hashedPassword);
 			
 			result = pstm.executeUpdate();
 			System.out.println("Rows inserted = " + result);
 			
 		} catch (SQLException e) {
 		    System.out.println("DB ERROR: " + e.getMessage());
-		    e.printStackTrace();
 		}
 		
 		return result;
@@ -64,33 +45,57 @@ public class UserDAO {
 		
 		User user = null;
 		
-		String query = "SELECT * FROM newform WHERE email = ? AND password = ?";
+		String query = "SELECT * FROM newform WHERE email = ?";
 		
-		try(Connection con = getConnection();
+		try(Connection con =  DBUtil.getConnection();
 				PreparedStatement ps = con.prepareStatement(query)){
 			
 			ps.setString(1, email);
-			ps.setString(2, password);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				 user = new User(
+				
+				String DBhash = rs.getString("password");
+				
+				if(BCrypt.checkpw(password, DBhash)) {
+					
+					user = new User(
 						 	rs.getString("name"),
 						 	rs.getInt("age"),
 						 	rs.getString("email"),
 						 	rs.getLong("phone"),
 						 	null);
+				}
 			}
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Login error : " + e.getMessage());
 		}
 		
 		return user;
 		
+	}
+	
+	public static boolean emailExists(String email) {
+		
+		String query = "SELECT email FROM newform WHERE email = ?";
+		
+		try(Connection con = DBUtil.getConnection();
+				PreparedStatement ps = con.prepareStatement(query)){
+			
+		ps.setString(1, email);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		return rs.next();
+		
+		} catch (SQLException e) {
+			System.out.println("Error while registering : " + e.getMessage());
+		}
+		
+		return false;
 	}
 
 }

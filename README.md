@@ -1,26 +1,69 @@
-# User Management System
+# User Registration & Authentication System
 
-## Tech Stack
-- Java Servlets
-- JSP
+A Java-based web application built using Servlets, JSP, JDBC, and PostgreSQL that provides secure user registration and login functionality with session management and password hashing.
+
+## 🚀 Features
+
+- User Registration with server-side validation
+- Secure Login Authentication
+- Password Hashing using BCrypt
+- Duplicate Email Prevention
+- Session Management using HttpSession
+- Protected Routes using Servlet Filters
+- Logout Functionality
+- Error Handling & Validation Messages
+- JSP + JSTL based dynamic UI
+
+## 🛠 Tech Stack
+
+- Java 8
+- Servlets
+- JSP / JSTL
 - JDBC
 - PostgreSQL
+- Apache Tomcat 9
+- Maven
+- HTML / CSS
+- Git & GitHub
 
-## Features
-- User Registration
-- Input Validation Layer
-- DAO Pattern (JDBC)
-- MVC Architecture
-- Error Handling
+## 📂 Project Structure
 
-## Project Flow
-User → Servlet → Validator → DAO → Database → JSP
+src/main/java/com/project/
 
-## Setup Instructions
+- controller → Servlets
+- dao → Database operations
+- model → Java Beans / Models
+- filter → Authentication Filters
+- validation → Input validations
+- util → Utility classes
+
+src/main/webapp/
+
+- index.jsp
+- login.jsp
+- dashboard.jsp
+- success.jsp
+
+## 🔐 Security Implementations
+
+- BCrypt password hashing with salt
+- Session-based authentication
+- Protected dashboard access using filters
+- Duplicate email account prevention
+
+## 🔄 Application Flow
+
+1. User registers account
+2. Password hashed before storing in database
+3. User logs in with credentials
+4. Session created after successful login
+5. Filter protects dashboard page
+6. Logout invalidates session
+
+## ⚙️ How to Run
+
 1. Clone repository
-2. Configure PostgreSQL DB
-3. Update DB credentials
-4. Run on Apache Tomcat
 
-## 👨‍ Author
-Kartik Shinde
+```bash
+git clone <https://github.com/kartik19230/user-management-system>
+

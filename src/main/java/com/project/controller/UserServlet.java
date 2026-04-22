@@ -45,6 +45,19 @@ public class UserServlet extends HttpServlet {
         // ✅ Model
         User user = new User(name, Integer.parseInt(ageStr), email, Long.parseLong(phone), password);
 
+        if (UserDAO.emailExists(email)) {
+        	
+        	errors.add("Email already registered");
+			
+        	req.setAttribute("errors", errors);
+            req.setAttribute("name", name);
+            req.setAttribute("email", email);
+            req.setAttribute("phone", phone);
+            req.setAttribute("age", ageStr);
+
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            return;
+		}
         // ✅ DAO
         int result = UserDAO.save(user);
 

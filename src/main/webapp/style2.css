@@ -1,0 +1,118 @@
+@charset "ISO-8859-1";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+h2 {
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    animation: slideDown 0.6s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body > * {
+    animation: slideUp 0.6s ease;
+}
+
+/* Success card container */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 + p:first-of-type {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+p {
+    background: white;
+    padding: 20px 40px;
+    margin: 15px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+    font-size: 16px;
+    color: #2c3e50;
+    font-weight: 500;
+    border-left: 5px solid #38ef7d;
+    transition: all 0.3s ease;
+    animation: slideUp 0.6s ease;
+}
+
+p:nth-of-type(1) {
+    animation-delay: 0.2s;
+}
+
+p:nth-of-type(2) {
+    animation-delay: 0.3s;
+}
+
+p:nth-of-type(3) {
+    animation-delay: 0.4s;
+}
+
+p:nth-of-type(4) {
+    animation-delay: 0.5s;
+}
+
+p:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    border-left-color: #11998e;
+}
+
+/* Success checkmark styling (optional) */
+h2::before {
+    content: " ";
+    color: #38ef7d;
+    font-weight: bold;
+}
+
+/* Make the data more readable */
+p strong {
+    color: #11998e;
+    font-weight: 600;
+}
