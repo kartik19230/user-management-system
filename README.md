@@ -66,7 +66,7 @@ src/main/webapp/
 
 ```bash
 git clone <https://github.com/kartik19230/user-management-system>
-
+```
 2. Import project into Eclipse / IntelliJ IDEA
 
 3. Configure PostgreSQL database
@@ -89,7 +89,7 @@ Kartik Shinde
 
 ## 🔗 Repository
 
-[View Source Code](https://github.com/your-username/your-repository-name)
+[View Source Code](https://github.com/kartik19230/user-management-system)
 
 ## ⭐ Support
 
