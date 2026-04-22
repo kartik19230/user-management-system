@@ -67,3 +67,30 @@ src/main/webapp/
 ```bash
 git clone <https://github.com/kartik19230/user-management-system>
 
+2. Import project into Eclipse / IntelliJ IDEA
+
+3. Configure PostgreSQL database
+
+4. Update database credentials in the project
+
+5. Run the project on Apache Tomcat Server
+
+## 📈 Future Enhancements
+
+- Forgot Password
+- Email Verification
+- Role-based Access (Admin/User)
+- Spring Boot Migration
+- REST API Version
+
+## 👨‍💻 Author
+
+Kartik Shinde
+
+## 🔗 Repository
+
+[View Source Code](https://github.com/your-username/your-repository-name)
+
+## ⭐ Support
+
+If you found this project useful, consider starring the repository.
